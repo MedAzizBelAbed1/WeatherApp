@@ -134,4 +134,10 @@
       <Name>WeatherApp</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\background.jpg" />
+    <BundleResource Include="Resources\humidity.png" />
+    <BundleResource Include="Resources\temperature.png" />
+    <BundleResource Include="Resources\wind.png" />
+  </ItemGroup>
 </Project>

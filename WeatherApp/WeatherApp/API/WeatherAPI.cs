@@ -7,7 +7,7 @@ namespace WeatherApp.API
 {
     public class WeatherAPI
     {
-        string path = "https://api.apixu.com/v1/current.json?key=9202ffa8dc8a4bd68b1110943191405&q=Dusseldorf";
+        string path = "https://api.apixu.com/v1/current.json?";
         HttpClient httpClient;
         WeatherModel weatherModel;
         public WeatherAPI()

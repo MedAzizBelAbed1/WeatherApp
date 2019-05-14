@@ -88,6 +88,10 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\drawable\background.jpg" />
+    <AndroidResource Include="Resources\drawable\humidity.png" />
+    <AndroidResource Include="Resources\drawable\temperature.png" />
+    <AndroidResource Include="Resources\drawable\wind.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
