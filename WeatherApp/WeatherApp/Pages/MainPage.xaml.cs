@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WeatherApp.API;
+using WeatherApp.Services;
 using WeatherApp.ViewModels;
 using Xamarin.Forms;
 
@@ -19,11 +20,17 @@ namespace WeatherApp
         public MainPage()
         {
             InitializeComponent();
-            vm = new WeatherViewModel();
         }
+
+        void CurrentLocationClicked(object sender, System.EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            vm = new WeatherViewModel();
             await vm.LoadAllData();
             DailyWeatherView.BindingContext = vm.dailyWeather;
             forecastlistView.ItemsSource = vm.forecastList;

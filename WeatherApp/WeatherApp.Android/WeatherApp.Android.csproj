@@ -92,6 +92,7 @@
     <AndroidResource Include="Resources\drawable\humidity.png" />
     <AndroidResource Include="Resources\drawable\temperature.png" />
     <AndroidResource Include="Resources\drawable\wind.png" />
+    <AndroidResource Include="Resources\drawable\location.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

@@ -32,7 +32,8 @@ namespace WeatherApp.ViewModels
         /// </summary>
         public async Task LoadAllData()
         {
-            WeatherModel rootModel = await weatherService.GetRootModel();
+            var location = await AppService.GetUserLocation();
+            WeatherModel rootModel = await weatherService.GetRootModel($"{location.Latitude},{location.Longitude}");
 
             // current weather mapping
             _dailyWeather.region = rootModel.location.region;

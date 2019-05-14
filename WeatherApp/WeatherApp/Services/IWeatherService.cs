@@ -7,6 +7,6 @@ namespace WeatherApp.Services
 {
     public interface IWeatherService
     {
-        Task<WeatherModel> GetRootModel();
+        Task<WeatherModel> GetRootModel(string location);
     }
 }
