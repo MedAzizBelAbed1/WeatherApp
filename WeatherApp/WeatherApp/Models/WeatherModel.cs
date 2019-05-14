@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace WeatherApp.Models
 {
-
     public class Location
     {
         public string name { get; set; }
@@ -19,6 +20,17 @@ namespace WeatherApp.Models
         public string text { get; set; }
         public string icon { get; set; }
         public int code { get; set; }
+        public string weatherIcon 
+        {
+            get 
+            {
+                return icon.Replace("//", "http://");
+            }
+            set
+            {
+                weatherIcon = value;
+            }
+        }
     }
 
     public class Current
@@ -48,10 +60,51 @@ namespace WeatherApp.Models
         public double gust_kph { get; set; }
     }
 
+    public class Day
+    {
+        public double maxtemp_c { get; set; }
+        public double maxtemp_f { get; set; }
+        public double mintemp_c { get; set; }
+        public double mintemp_f { get; set; }
+        public double avgtemp_c { get; set; }
+        public double avgtemp_f { get; set; }
+        public double maxwind_mph { get; set; }
+        public double maxwind_kph { get; set; }
+        public double totalprecip_mm { get; set; }
+        public double totalprecip_in { get; set; }
+        public double avgvis_km { get; set; }
+        public double avgvis_miles { get; set; }
+        public double avghumidity { get; set; }
+        public Condition condition { get; set; }
+        public double uv { get; set; }
+    }
+
+    public class Astro
+    {
+        public string sunrise { get; set; }
+        public string sunset { get; set; }
+        public string moonrise { get; set; }
+        public string moonset { get; set; }
+    }
+
+    public class Forecastday
+    {
+        public string date { get; set; }
+        public int date_epoch { get; set; }
+        public Day day { get; set; }
+        public Astro astro { get; set; }
+    }
+
+    public class Forecast
+    {
+        public List<Forecastday> forecastday { get; set; }
+    }
+
     public class WeatherModel
     {
         public Location location { get; set; }
         public Current current { get; set; }
+        public Forecast forecast { get; set; }
     }
 
 }

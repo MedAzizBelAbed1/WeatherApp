@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WeatherApp.API;
+using WeatherApp.ViewModels;
 using Xamarin.Forms;
 
 namespace WeatherApp
@@ -13,9 +15,18 @@ namespace WeatherApp
     [DesignTimeVisible(true)]
     public partial class MainPage : ContentPage
     {
+        WeatherViewModel vm;
         public MainPage()
         {
             InitializeComponent();
+            vm = new WeatherViewModel();
+        }
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await vm.LoadAllData();
+            DailyWeatherView.BindingContext = vm.dailyWeather;
+            forecastlistView.ItemsSource = vm.forecastList;
         }
     }
 }
