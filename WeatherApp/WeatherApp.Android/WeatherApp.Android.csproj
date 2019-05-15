@@ -93,6 +93,9 @@
     <AndroidResource Include="Resources\drawable\temperature.png" />
     <AndroidResource Include="Resources\drawable\wind.png" />
     <AndroidResource Include="Resources\drawable\location.png" />
+    <AndroidResource Include="Resources\drawable\generalLocation.png" />
+    <AndroidResource Include="Resources\drawable\backgroundBlurry.jpg" />
+    <AndroidResource Include="Resources\drawable\configuration.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
