@@ -43,7 +43,7 @@ namespace WeatherApp.Services
         private static async Task<string> GetLocationFromAddress()
         {
             string locationLatLong = string.Empty;
-            var fullAddress = (Application.Current.Properties["fullAddress "].ToString());
+            var fullAddress = (Application.Current.Properties["fullAddress"].ToString());
             try
             {
                 var locations = await Geocoding.GetLocationsAsync(fullAddress);
@@ -66,7 +66,7 @@ namespace WeatherApp.Services
         }
 
 
-        public static async Task SaveLastUserLocation (bool isCurrentPostion)
+        public static async Task<string> SaveLastUserLocation (bool isCurrentPostion)
         {
             string lastUserLocation = string.Empty;
             if (isCurrentPostion)
@@ -79,7 +79,7 @@ namespace WeatherApp.Services
             }
             Application.Current.Properties["lastUserLocation"] = lastUserLocation;
             await Application.Current.SavePropertiesAsync();
-
+            return lastUserLocation;
         }
 
         public static string GetLastUserLocation()

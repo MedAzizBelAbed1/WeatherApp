@@ -96,6 +96,9 @@
     <AndroidResource Include="Resources\drawable\generalLocation.png" />
     <AndroidResource Include="Resources\drawable\backgroundBlurry.jpg" />
     <AndroidResource Include="Resources\drawable\configuration.png" />
+    <AndroidResource Include="Resources\drawable\close.png" />
+    <AndroidResource Include="Resources\drawable\backgroundDay.jpg" />
+    <AndroidResource Include="Resources\drawable\backgroundNight.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

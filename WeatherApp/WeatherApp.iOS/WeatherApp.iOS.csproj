@@ -143,5 +143,8 @@
     <BundleResource Include="Resources\generalLocation.png" />
     <BundleResource Include="Resources\backgroundBlurry.jpg" />
     <BundleResource Include="Resources\configuration.png" />
+    <BundleResource Include="Resources\close.png" />
+    <BundleResource Include="Resources\backgroundDay.jpg" />
+    <BundleResource Include="Resources\backgroundNight.jpg" />
   </ItemGroup>
 </Project>
