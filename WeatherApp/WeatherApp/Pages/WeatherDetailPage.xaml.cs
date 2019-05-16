@@ -16,7 +16,7 @@ namespace WeatherApp.Pages
 
         void Close_Clicked(object sender, System.EventArgs e)
         {
-            Navigation.PopModalAsync();
+            Navigation.PopModalAsync(false);
         }
       
     }
