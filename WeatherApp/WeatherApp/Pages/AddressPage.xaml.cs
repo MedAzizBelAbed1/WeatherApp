@@ -13,7 +13,7 @@ namespace WeatherApp.Pages
         {
             InitializeComponent();
         }
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
             addressModel = AppServices.GetAddress();
@@ -29,7 +29,6 @@ namespace WeatherApp.Pages
             if (!string.IsNullOrEmpty(addressModel.country))
             {
                 await AppServices.SaveAddress(addressModel);
-                await AppServices.SaveLastUserLocation(false);
                 await Navigation.PopModalAsync();
             }
             else

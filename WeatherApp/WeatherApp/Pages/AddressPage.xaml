@@ -1,35 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="#8dc7f6" x:Class="WeatherApp.Pages.AddressPage">
     <ContentPage.Content>
-        <Grid Margin="0,0,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Image Source="backgroundBlurry.jpg" Aspect="AspectFill" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" />
-            <StackLayout Grid.Row="0" Grid.Column="0" Margin="16,44,16,16" Orientation="Vertical">
-                <Button  Grid.Row="0" Image="close.png" Grid.Column="0" HeightRequest="44" WidthRequest="44" Clicked="Close_Clicked" BackgroundColor="Transparent" HorizontalOptions="EndAndExpand" />
-                <StackLayout Margin="0,30,0,0" Orientation="Horizontal">
-                    <Label VerticalOptions="Center" WidthRequest="120" FontSize="27" Text="Street:" TextColor="White" />
-                    <Entry VerticalOptions="Center" HorizontalOptions="FillAndExpand" Text="{Binding street}" Placeholder="Street" />
+        <ScrollView Orientation="Vertical">
+            <Grid Margin="0,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Source="backgroundBlurry.jpg" Aspect="AspectFill" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" />
+                <StackLayout Grid.Row="0" Grid.Column="0" Margin="16,44,16,16" Orientation="Vertical">
+                    <Image Source="close.png" Grid.Row="0" Grid.Column="0" WidthRequest="44" HeightRequest="44" HorizontalOptions="EndAndExpand" Aspect="AspectFit">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Close_Clicked" />
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <StackLayout Margin="0,30,0,0" Orientation="Horizontal">
+                        <Label VerticalOptions="Center" WidthRequest="120" FontSize="27" Text="Street:" TextColor="White" />
+                        <Entry VerticalOptions="Center" HorizontalOptions="FillAndExpand" Text="{Binding street}" Placeholder="Street" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label VerticalOptions="Center" WidthRequest="120" FontSize="27" Text="Zip Code:" TextColor="White" />
+                        <Entry VerticalOptions="Center" HorizontalOptions="FillAndExpand" Text="{Binding zipCode}" Placeholder="Zip Code" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label VerticalOptions="Center" WidthRequest="120" FontSize="27" Text="City:" TextColor="White" />
+                        <Entry VerticalOptions="Center" HorizontalOptions="FillAndExpand" Text="{Binding city}" Placeholder="City" />
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Label VerticalOptions="Center" WidthRequest="120" FontSize="27" Text="Country:" TextColor="White" />
+                        <Entry VerticalOptions="Center" HorizontalOptions="FillAndExpand" Text="{Binding country}" Placeholder="Country" />
+                    </StackLayout>
                 </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label VerticalOptions="Center" WidthRequest="120" FontSize="27"  Text="Zip Code:" TextColor="White" />
-                    <Entry VerticalOptions="Center" HorizontalOptions="FillAndExpand"  Text="{Binding zipCode}"  Placeholder="Zip Code" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label VerticalOptions="Center" WidthRequest="120" FontSize="27" Text="City:" TextColor="White" />
-                    <Entry VerticalOptions="Center"  HorizontalOptions="FillAndExpand"  Text="{Binding city}"  Placeholder="City" />
-                </StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Label VerticalOptions="Center" WidthRequest="120" FontSize="27" Text="Country:" TextColor="White" />
-                    <Entry VerticalOptions="Center"  HorizontalOptions="FillAndExpand" Text="{Binding country}"  Placeholder="Country" />
-                </StackLayout>
-            </StackLayout>
-            <Button BorderColor="White" BorderWidth="1" Text="Save" Grid.Row="1" TextColor="White" FontSize="35" Grid.Column="0" Clicked="SavleClicked" HeightRequest="44" WidthRequest="100" VerticalOptions="Center" HorizontalOptions="Center" />
-        </Grid>
+                  <Button BorderColor="White" BackgroundColor="Transparent"  BorderWidth="1" Text="Save" Grid.Row="1" TextColor="White" FontSize="20" Grid.Column="0" Clicked="SavleClicked" HeightRequest="44" WidthRequest="200"
+                VerticalOptions="End" Margin="0,0,0,16" HorizontalOptions="Center" />
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

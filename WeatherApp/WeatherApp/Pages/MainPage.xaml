@@ -12,9 +12,24 @@
             </Grid.ColumnDefinitions>
             <Image Source="{Binding backgroundImage}" Aspect="AspectFill" Grid.Row="0" Grid.RowSpan="3" Grid.Column="0" />
             <StackLayout Margin="16,16,16,0" Orientation="Horizontal" HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.Column="0">
-                <Button Image="configuration.png" BackgroundColor="Transparent" WidthRequest="35" HeightRequest="35" Clicked="ConfigurationClicked" />
+                <Image Source="configuration.png" WidthRequest="35" HeightRequest="35" Aspect="AspectFit">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ConfigurationClicked" />
+                    </Image.GestureRecognizers>
+                </Image>
+                 <Image Source="generalLocation.png" WidthRequest="35" HeightRequest="35" Aspect="AspectFit">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="AddressLocationClicked" />
+                    </Image.GestureRecognizers>
+                </Image>
+                 <Image Source="location.png" WidthRequest="35" HeightRequest="35" Aspect="AspectFit">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="CurrentLocationClicked" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <!--<Button Image="configuration.png" BackgroundColor="Transparent" WidthRequest="35" HeightRequest="35" Clicked="ConfigurationClicked" />
                 <Button Image="generalLocation.png" BackgroundColor="Transparent" WidthRequest="35" HeightRequest="35" Clicked="AddressLocationClicked" />
-                <Button Image="location.png" BackgroundColor="Transparent" WidthRequest="35" HeightRequest="35" Clicked="CurrentLocationClicked" />
+                <Button Image="location.png" BackgroundColor="Transparent" WidthRequest="35" HeightRequest="35" Clicked="CurrentLocationClicked" />-->
             </StackLayout>
             <BoxView BackgroundColor="Silver" Margin="16,5,16,16" Grid.Row="1" Grid.Column="0" Opacity="0.6" />
             <Grid Margin="22,11,22,22" Grid.Row="1" Grid.Column="0">
@@ -38,7 +53,7 @@
                 <Label TextColor="White" Grid.Row="1" Grid.Column="0" Text="{Binding country}" />
                 <StackLayout Margin="10,0,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Center" Orientation="Horizontal">
                     <Label TextColor="White" VerticalOptions="Center" FontSize="50" Text="{Binding temperature}" />
-                    <Image x:Name="weatherImage" WidthRequest="120" HeightRequest="120" Aspect="AspectFill" Source="{Binding icon}" />
+                    <Image x:Name="weatherImage" WidthRequest="120" HeightRequest="120" Aspect="AspectFit" Source="{Binding icon}" />
                 </StackLayout>
                 <Label Grid.Row="3" Grid.Column="1" HorizontalOptions="Center" TextColor="White" FontSize="25" Text="{Binding condition}" />
                 <StackLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Center" Orientation="Vertical">
@@ -60,7 +75,7 @@
             </Grid>
             <Button BackgroundColor="Transparent" BorderColor="Transparent" Grid.Row="1" Grid.Column="0" Clicked="DailyDetailedWeather_Clicked" />
             <BoxView BackgroundColor="Silver" Margin="16,16,16,16" Grid.Column="0" Grid.Row="2" Opacity="0.6" />
-            <ListView x:Name="forecastlistView" ItemTapped="ForecastList_ItemTapped" BackgroundColor="Transparent" Grid.Column="0" Grid.Row="2" IsPullToRefreshEnabled="true" SeparatorVisibility="None" Margin="22,22,22,22" RowHeight="50">
+            <ListView x:Name="forecastlistView" Refreshing="ForecastLisView_Refreshing" ItemTapped="ForecastList_ItemTapped" BackgroundColor="Transparent" Grid.Column="0" Grid.Row="2" IsPullToRefreshEnabled="true" SeparatorVisibility="None" Margin="22,22,22,22" RowHeight="50">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
