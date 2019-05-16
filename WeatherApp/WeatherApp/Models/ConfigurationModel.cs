@@ -8,6 +8,7 @@ namespace WeatherApp.Models
         private bool _synchronization;
         public string APIKey { get; set; }
         public string numberOfDays { get; set; }
+        public string lastUserLocation { get; set; }
         public bool runAnimation { get; set; }
         public bool synchronization
         {

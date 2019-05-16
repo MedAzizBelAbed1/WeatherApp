@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 using WeatherApp.Models;
@@ -26,10 +27,19 @@ namespace WeatherApp.API
             if (response.IsSuccessStatusCode)
             {
                 var result = response.Content.ReadAsStringAsync().Result;
-                weatherModel = Newtonsoft.Json.JsonConvert.DeserializeObject<WeatherModel>(result);
+                try
+                {
+                    weatherModel = Newtonsoft.Json.JsonConvert.DeserializeObject<WeatherModel>(result);
+                }
+                catch(Exception ex)
+                {
+                    Debug.WriteLine($"Track error .. {ex.Message}");
+                    weatherModel = null;
+                }
             }
             else
             {
+                Debug.WriteLine($"Track error .. {response.ReasonPhrase}");
                 weatherModel = null;
             }
             return weatherModel;

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using WeatherApp.Constants;
 using WeatherApp.Models;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -10,6 +11,13 @@ namespace WeatherApp.Services
 {
     public class AppServices
     {
+
+        public delegate void AlertChangedListener(string message);
+        public static event AlertChangedListener AlertChanged;
+
+        public delegate void DataChangedListener();
+        public static event DataChangedListener DataChanged;
+
         public AppServices()
         {
         }
@@ -17,7 +25,7 @@ namespace WeatherApp.Services
         /// <summary>
         /// try to get user location (longitude & latitude)
         /// </summary>
-        private static async Task<string> GetCurrentUserLocation()
+        public static async Task<string> GetCurrentUserLocation()
         {
             string locationLatLong = string.Empty;
             try
@@ -25,13 +33,26 @@ namespace WeatherApp.Services
                 var location = await Geolocation.GetLastKnownLocationAsync();
                 if (location != null)
                 {
-                    locationLatLong = $"{location.Longitude},{location.Latitude}";
+                    locationLatLong = $"{location.Latitude},{location.Longitude}";
                 }
             }
-            catch (Exception ex)
+            catch (FeatureNotSupportedException)
             {
-                // Unable to get location
-                Debug.WriteLine(ex.Message);
+                AlertChanged(ResourcesValues.LocationNotSupportedMessage);
+            }
+            catch (FeatureNotEnabledException)
+            {
+                AlertChanged(ResourcesValues.LocationNotEnabledMessage);
+
+            }
+            catch (PermissionException)
+            {
+                AlertChanged(ResourcesValues.LocationPermissionMessage);
+
+            }
+            catch (Exception)
+            {
+                AlertChanged(ResourcesValues.LocationUnkonwenMessage);
             }
             return locationLatLong;    
         }
@@ -51,22 +72,21 @@ namespace WeatherApp.Services
                 if (location != null)
                 {
                     locationLatLong = $"{location.Latitude},{location.Longitude}";
-
                 }
             }
-            catch (FeatureNotSupportedException fnsEx)
+            catch (FeatureNotSupportedException)
             {
-                // Feature not supported on device
+                AlertChanged(ResourcesValues.LocationNotEnabledMessage);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Handle exception that may have occurred in geocoding
+                AlertChanged(ResourcesValues.LocationUnkonwenMessage); 
             }
             return locationLatLong;
         }
 
 
-        public static async Task<string> SaveLastUserLocation (bool isCurrentPostion)
+        public static async Task SaveLastUserLocation (bool isCurrentPostion)
         {
             string lastUserLocation = string.Empty;
             if (isCurrentPostion)
@@ -79,47 +99,38 @@ namespace WeatherApp.Services
             }
             Application.Current.Properties["lastUserLocation"] = lastUserLocation;
             await Application.Current.SavePropertiesAsync();
-            return lastUserLocation;
+            DataChanged();
         }
 
-        public static string GetLastUserLocation()
-        {
-            try
-            {
-                return (Application.Current.Properties["lastUserLocation"].ToString());
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Can't get location {ex.Message}");
-                return null;
-            }
-        }
-
-
-        /// <summary>
-        /// save last address input
-        /// </summary>
-        public static async Task SaveConfiguration(ConfigurationModel configuration)
+        public static async Task SaveConfiguration(ConfigurationModel configuration, bool refreshData = true)
         {
             //For Saving Value
             Application.Current.Properties["APIKey"] = configuration.APIKey;
             Application.Current.Properties["numberOfDays"] = configuration.numberOfDays;
             Application.Current.Properties["runAnimation"] = configuration.runAnimation;
+            Application.Current.Properties["synchronization"] = configuration.synchronization;
+            Application.Current.Properties["duration"] = configuration.numberOfDays;
+            Application.Current.Properties["lastUserLocation"] = configuration.lastUserLocation;
             await Application.Current.SavePropertiesAsync();
-        }   /// <summary>
-            /// get last address input
-            /// </summary>
+            if (refreshData) { DataChanged(); }
+        }
+
+        /// <summary>
+        /// get last address input
+        /// </summary>
         public static ConfigurationModel GetConfiguration()
         {
             ConfigurationModel configuration = new ConfigurationModel();
             //For Saving Value
             try
             {
-                configuration.APIKey = (Application.Current.Properties["APIKey"].ToString());
-                configuration.numberOfDays = (Application.Current.Properties["numberOfDays"].ToString());
-                // configuration.runAnimation = Convert.ToBoolean((Application.Current.Properties["runAnimation"].ToString()));
-                configuration.runAnimation = true;
-             }
+                configuration.APIKey = (Application.Current.Properties["APIKey"]?.ToString());
+                configuration.numberOfDays = (Application.Current.Properties["numberOfDays"]?.ToString());
+                configuration.runAnimation = Convert.ToBoolean((Application.Current.Properties["runAnimation"]?.ToString()));
+                configuration.synchronization = Convert.ToBoolean((Application.Current.Properties["synchronization"]?.ToString()));
+                configuration.duration = (Application.Current.Properties["numberOfDays"]?.ToString());
+                configuration.lastUserLocation = (Application.Current.Properties["lastUserLocation"]?.ToString());
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine($"Can't get configuration {ex.Message}");
@@ -138,6 +149,7 @@ namespace WeatherApp.Services
             Application.Current.Properties["country"] = addressModel.country;
             Application.Current.Properties["fullAddress"] = addressModel.fullAddress; ;
             await Application.Current.SavePropertiesAsync();
+            await SaveLastUserLocation(false);
         }
 
         /// <summary>
@@ -149,11 +161,11 @@ namespace WeatherApp.Services
             //For Saving Value
             try
             {
-                address.street = (Application.Current.Properties["street"].ToString());
-                address.zipCode = (Application.Current.Properties["zipCode"].ToString());
-                address.city = (Application.Current.Properties["city"].ToString());
-                address.country = (Application.Current.Properties["country"].ToString());
-                address.fullAddress = (Application.Current.Properties["fullAddress"].ToString());
+                address.street = (Application.Current.Properties["street"]?.ToString());
+                address.zipCode = (Application.Current.Properties["zipCode"]?.ToString());
+                address.city = (Application.Current.Properties["city"]?.ToString());
+                address.country = (Application.Current.Properties["country"]?.ToString());
+                address.fullAddress = (Application.Current.Properties["fullAddress"]?.ToString());
 
             }
             catch (Exception ex)

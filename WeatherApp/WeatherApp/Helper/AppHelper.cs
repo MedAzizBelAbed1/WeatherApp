@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Globalization;
+using Plugin.Connectivity;
 using WeatherApp.Constants;
 
 namespace WeatherApp.Helper
 {
     public static class AppHelper
     {
+
+        public static bool CheckInternet()
+        {
+            return CrossConnectivity.Current.IsConnected;
+        }
         public static string GetDayOfWeek(string date)
         {
             DateTime dateTime;
@@ -23,16 +29,20 @@ namespace WeatherApp.Helper
             string result = string.Empty;
             TimeSpan start;
             TimeSpan end;
-            TimeSpan.TryParse(timeSunSet, out start);
+            end = DateTime.ParseExact(timeSunSet,
+                                 "hh:mm tt", CultureInfo.InvariantCulture).TimeOfDay;
+            start = DateTime.ParseExact(timeSunRise,
+                                    "hh:mm tt", CultureInfo.InvariantCulture).TimeOfDay;
+           
             TimeSpan.TryParse(timeSunRise, out end);
             TimeSpan now = DateTime.Now.TimeOfDay;
             if ((now > start) && (now < end))
             {
-                result = AppConstants.dayImage;
+                result = AppConstants.nightImage;
             }
             else
             {
-                result = AppConstants.nightImage;
+                result = AppConstants.dayImage;
             }
             return result;
         }

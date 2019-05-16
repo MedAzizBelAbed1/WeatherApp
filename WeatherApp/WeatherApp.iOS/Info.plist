@@ -35,6 +35,6 @@
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>New Entry</string>
+	<string>Want to use your location</string>
 </dict>
 </plist>

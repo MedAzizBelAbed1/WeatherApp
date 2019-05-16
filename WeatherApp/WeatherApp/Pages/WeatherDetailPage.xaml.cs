@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using WeatherApp.ViewModels;
 using Xamarin.Forms;
+using static WeatherApp.ViewModels.WeatherViewModel;
 
 namespace WeatherApp.Pages
 {
     public partial class WeatherDetailPage : ContentPage
     {
-        public WeatherDetailPage(DetailedWeatherModel  detailedWeather)
+        public WeatherDetailPage(DetailedWeatherViewModel detailedWeather)
         {
             InitializeComponent();
             BindingContext = detailedWeather;
