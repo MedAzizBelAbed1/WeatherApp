@@ -9,6 +9,7 @@ using WeatherApp.Constants;
 using WeatherApp.Helper;
 using WeatherApp.Models;
 using WeatherApp.Services;
+using Xamarin.Forms;
 using static WeatherApp.ViewModels.WeatherViewModel;
 
 namespace WeatherApp.ViewModels
@@ -25,6 +26,7 @@ namespace WeatherApp.ViewModels
         public DailyWeatherViewModel dailyWeatherVM => _dailyViewModel;
         private DailyWeatherViewModel _dailyViewModel { get; set; }
 
+        IAppServices appServices;
         WeatherModel rootModel;
         IWeatherService weatherService;
         DetailedWeatherViewModel _detailedWeatheVM;
@@ -32,6 +34,7 @@ namespace WeatherApp.ViewModels
 
         public MainPageViewModel()
         {
+            appServices = (Application.Current as App).AppServices;
             _dailyViewModel = new DailyWeatherViewModel();
             _forecastViewModel = new ObservableCollection<ForecastWeatherViewModel>();
             _detailedWeatheVM = new DetailedWeatherViewModel();
@@ -56,7 +59,7 @@ namespace WeatherApp.ViewModels
             IsConnected = AppHelper.CheckInternet();
             if (IsConnected)
             {
-                var configuration = AppServices.GetConfiguration();
+                var configuration = appServices.GetConfiguration();
                 if (string.IsNullOrEmpty(configuration.lastUserLocation))
                 {
                     AlertChanged(ResourcesValues.LocationUnkonwenMessage);
@@ -70,8 +73,7 @@ namespace WeatherApp.ViewModels
                     var dailyAstro = rootModel.forecast.forecastday[0].astro;
                     // daily weather mapping
                     _dailyViewModel.textcolor = configuration.textcolor;
-                    _dailyViewModel.region = rootModel.location.region;
-                    _dailyViewModel.city = rootModel.location.name;
+                    _dailyViewModel.regionAndCity = $"{rootModel.location.region}, {rootModel.location.name}";
                     _dailyViewModel.country = rootModel.location.country;
                     _dailyViewModel.temperature = $"{rootModel.current.temp_c.ToString()}{AppConstants.celsius}";
                     _dailyViewModel.icon = $"{AppConstants.httpStart}{rootModel.current.condition.icon}";

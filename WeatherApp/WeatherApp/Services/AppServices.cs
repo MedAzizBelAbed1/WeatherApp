@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace WeatherApp.Services
 {
-    public class AppServices
+    public class AppServices : IAppServices
     {
 
         public delegate void AlertChangedListener(string message);
@@ -17,15 +17,20 @@ namespace WeatherApp.Services
 
         public delegate void DataChangedListener();
         public static event DataChangedListener DataChanged;
-
+        ConfigurationModel configuration;
+        AddressModel address;
         public AppServices()
         {
+            configuration = new ConfigurationModel();
+            address = new AddressModel();
+
+
         }
 
         /// <summary>
         /// try to get user location (longitude & latitude)
         /// </summary>
-        public static async Task<string> GetCurrentUserLocation()
+        private async Task<string> GetCurrentUserLocation()
         {
             string locationLatLong = string.Empty;
             try
@@ -54,14 +59,14 @@ namespace WeatherApp.Services
             {
                 AlertChanged(ResourcesValues.LocationUnkonwenMessage);
             }
-            return locationLatLong;    
+            return locationLatLong;
         }
 
 
         /// <summary>
         /// try to get user location (longitude & latitude)
         /// </summary>
-        private static async Task<string> GetLocationFromAddress()
+        private async Task<string> GetLocationFromAddress()
         {
             string locationLatLong = string.Empty;
             var fullAddress = (Application.Current.Properties["fullAddress"].ToString());
@@ -80,13 +85,13 @@ namespace WeatherApp.Services
             }
             catch (Exception)
             {
-                AlertChanged(ResourcesValues.LocationUnkonwenMessage); 
+                AlertChanged(ResourcesValues.LocationUnkonwenMessage);
             }
             return locationLatLong;
         }
 
 
-        public static async Task SaveLastUserLocation (bool isCurrentPostion)
+        public async Task SaveLastUserLocation(bool isCurrentPostion)
         {
             string lastUserLocation = string.Empty;
             if (isCurrentPostion)
@@ -102,17 +107,17 @@ namespace WeatherApp.Services
             DataChanged();
         }
 
-        public static async Task InitConfiguration(ConfigurationModel configuration)
+        public async Task InitConfiguration(ConfigurationModel configuration)
         {
             configuration.APIKey = AppConstants.DefaultAPIKey;
             configuration.numberOfDays = AppConstants.DefaultNumberOfDays;
             configuration.runAnimation = true;
             configuration.textcolor = AppConstants.DefaultColor;
-            configuration.lastUserLocation = await AppServices.GetCurrentUserLocation();
-            await AppServices.SaveConfiguration(configuration, false);
+            configuration.lastUserLocation = await this.GetCurrentUserLocation();
+            await this.SaveConfiguration(configuration, false);
         }
 
-        public static async Task SaveConfiguration(ConfigurationModel configuration, bool refreshData = true)
+        public async Task SaveConfiguration(ConfigurationModel configuration, bool refreshData = true)
         {
             //For Saving Value
             Application.Current.Properties["APIKey"] = configuration.APIKey;
@@ -129,9 +134,8 @@ namespace WeatherApp.Services
         /// <summary>
         /// get last address input
         /// </summary>
-        public static ConfigurationModel GetConfiguration()
+        public ConfigurationModel GetConfiguration()
         {
-            ConfigurationModel configuration = new ConfigurationModel();
             //For Saving Value
             try
             {
@@ -152,7 +156,7 @@ namespace WeatherApp.Services
         /// <summary>
         /// save last address input
         /// </summary>
-        public static async Task SaveAddress(AddressModel addressModel)
+        public async Task SaveAddress(AddressModel addressModel)
         {
             //For Saving Value
             Application.Current.Properties["street"] = addressModel.street;
@@ -167,9 +171,8 @@ namespace WeatherApp.Services
         /// <summary>
         /// get last address input
         /// </summary>
-        public static AddressModel GetAddress()
+        public AddressModel GetAddress()
         {
-            AddressModel address = new AddressModel();
             //For Saving Value
             try
             {

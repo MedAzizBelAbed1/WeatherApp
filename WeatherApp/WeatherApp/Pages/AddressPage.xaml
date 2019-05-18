@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" BackgroundColor="#8dc7f6" x:Class="WeatherApp.Pages.AddressPage">
     <ContentPage.Content>
-        <ScrollView Orientation="Vertical">
             <Grid Margin="0,0,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="2*" />
@@ -37,6 +36,5 @@
                   <Button BorderColor="White" BackgroundColor="Transparent"  BorderWidth="1" Text="Save" Grid.Row="1" TextColor="White" FontSize="20" Grid.Column="0" Clicked="SavleClicked" HeightRequest="44" WidthRequest="200"
                 VerticalOptions="End" Margin="0,0,0,16" HorizontalOptions="Center" />
             </Grid>
-        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

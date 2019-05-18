@@ -19,6 +19,7 @@ namespace WeatherApp
     [DesignTimeVisible(true)]
     public partial class MainPage : ContentPage
     {
+        IAppServices appServices;
         MainPageViewModel vm;
         ConfigurationModel configuration;
         Timer animationTimer;
@@ -27,6 +28,7 @@ namespace WeatherApp
         public MainPage()
         {
             InitializeComponent();
+            appServices = (Application.Current as App).AppServices;
             vm = new MainPageViewModel();
             MainPageViewModel.AlertChanged += Vm_AlertChangedListener;
             AppServices.AlertChanged += Vm_AlertChangedListener;
@@ -48,7 +50,7 @@ namespace WeatherApp
 
         async void CurrentLocationClicked(object sender, System.EventArgs e)
         {
-            await AppServices.SaveLastUserLocation(true);
+            await appServices.SaveLastUserLocation(true);
         }
         void AddressLocationClicked(object sender, System.EventArgs e)
         {
@@ -100,11 +102,11 @@ namespace WeatherApp
         async Task CheckAppConfiguration ()
         {
             //try to get configuration
-            configuration = AppServices.GetConfiguration();
+            configuration = appServices.GetConfiguration();
             // init configuration if it's empty ( use default api key & user current location etc ..) 
             if (string.IsNullOrEmpty(configuration.APIKey))
             {
-               await AppServices.InitConfiguration(configuration);
+               await appServices.InitConfiguration(configuration);
             }
             if (configuration.synchronization)
             {

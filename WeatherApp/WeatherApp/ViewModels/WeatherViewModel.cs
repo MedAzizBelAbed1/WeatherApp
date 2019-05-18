@@ -9,8 +9,7 @@ namespace WeatherApp.ViewModels
         public class DailyWeatherViewModel : INotifyPropertyChanged
         {
             private string _textcolor;
-            private string _region;
-            private string _city;
+            private string _regionAndCity;
             private string _country;
             private string _temperature;
             private string _icon;
@@ -33,28 +32,16 @@ namespace WeatherApp.ViewModels
                     OnPropertyChanged("textcolor");
                 }
             }
-            public string region
+            public string regionAndCity
             {
                 get
                 {
-                    return _region;
+                    return _regionAndCity;
                 }
                 set
                 {
-                    _region = value;
-                    OnPropertyChanged("region");
-                }
-            }
-            public string city
-            {
-                get
-                {
-                    return _city;
-                }
-                set
-                {
-                    _city = value;
-                    OnPropertyChanged("city");
+                    _regionAndCity = value;
+                    OnPropertyChanged("regionAndCity");
                 }
             }
             public string country

@@ -9,11 +9,13 @@ namespace WeatherApp.Pages
 {
     public partial class ConfigurationPage : ContentPage
     {
+        IAppServices appServices;
         ConfigurationModel configurationModel;
         public ConfigurationPage()
         {
             InitializeComponent();
-            configurationModel = AppServices.GetConfiguration();
+            appServices = (Application.Current as App).AppServices;
+            configurationModel = appServices.GetConfiguration();
             BindingContext = configurationModel;
         }
         void Close_Clicked(object sender, System.EventArgs e)
@@ -28,7 +30,7 @@ namespace WeatherApp.Pages
             }
             else
             {
-                await AppServices.SaveConfiguration(configurationModel);
+                await appServices.SaveConfiguration(configurationModel);
                 await Navigation.PopModalAsync(false);
             }
         }

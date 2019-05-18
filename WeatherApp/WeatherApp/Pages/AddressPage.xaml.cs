@@ -9,6 +9,7 @@ namespace WeatherApp.Pages
 {
     public partial class AddressPage : ContentPage
     {
+        IAppServices appServices;
         AddressModel addressModel;
         public AddressPage()
         {
@@ -17,7 +18,8 @@ namespace WeatherApp.Pages
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            addressModel = AppServices.GetAddress();
+            appServices = (Application.Current as App).AppServices;
+            addressModel = appServices.GetAddress();
             BindingContext = addressModel;
 
         }
@@ -30,7 +32,7 @@ namespace WeatherApp.Pages
             if (!string.IsNullOrEmpty(addressModel.country))
             {
                 UserDialogs.Instance.ShowLoading();
-                await AppServices.SaveAddress(addressModel);
+                await appServices.SaveAddress(addressModel);
                 await Navigation.PopModalAsync(false);
             }
             else
