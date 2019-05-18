@@ -8,6 +8,7 @@ namespace WeatherApp.ViewModels
         // daily weather view Model
         public class DailyWeatherViewModel : INotifyPropertyChanged
         {
+            private string _textcolor;
             private string _region;
             private string _city;
             private string _country;
@@ -20,6 +21,18 @@ namespace WeatherApp.ViewModels
             private string _wind;
             private string _backgroundImage;
 
+            public string textcolor
+            {
+                get
+                {
+                    return _textcolor;
+                }
+                set
+                {
+                    _textcolor = value;
+                    OnPropertyChanged("textcolor");
+                }
+            }
             public string region
             {
                 get
@@ -166,14 +179,16 @@ namespace WeatherApp.ViewModels
         // weekly weather view Model
         public class ForecastWeatherViewModel
         {
-            public ForecastWeatherViewModel(string minTemp, string maxTemp, string day, string icon)
+            public ForecastWeatherViewModel(string textcolor, string minTemp, string maxTemp, string day, string icon)
             {
+                this.textcolor = textcolor;
                 this.minTemp = minTemp;
                 this.maxTemp = maxTemp;
                 this.day = day;
                 this.icon = icon;
             }
 
+            public string textcolor { get; set; }
             public string minTemp { get; set; }
             public string maxTemp { get; set; }
             public string day { get; set; }

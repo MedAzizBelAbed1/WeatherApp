@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
-using WeatherApp.API;
 using WeatherApp.Constants;
 using WeatherApp.Models;
 using WeatherApp.Pages;
@@ -36,27 +32,31 @@ namespace WeatherApp
             AppServices.AlertChanged += Vm_AlertChangedListener;
         }
 
+        //Alert Popup Listener
         void Vm_AlertChangedListener(string message)
         {
             DisplayAlert(ResourcesValues.AppName, message, ResourcesValues.OkMessage);
         }
+
+        //Refresh forecast list view by user
         async void ForecastLisView_Refreshing(object sender, System.EventArgs e)
         {
             forecastlistView.IsRefreshing = true;
-            await vm.PullCompleteData();
+            await vm.BuildCompleteViewModel();
             forecastlistView.IsRefreshing = false;
         }
+
         async void CurrentLocationClicked(object sender, System.EventArgs e)
         {
             await AppServices.SaveLastUserLocation(true);
         }
         void AddressLocationClicked(object sender, System.EventArgs e)
         {
-            Navigation.PushModalAsync(new AddressPage());
+            Navigation.PushModalAsync(new AddressPage(),false);
         }
         void ConfigurationClicked(object sender, System.EventArgs e)
         {
-            Navigation.PushModalAsync(new ConfigurationPage());
+            Navigation.PushModalAsync(new ConfigurationPage(),false);
         }
         void ForecastList_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
         {
@@ -84,33 +84,33 @@ namespace WeatherApp
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            UserDialogs.Instance.ShowLoading();
             await CheckAppConfiguration();
             if (!isDataLoaded)
             {
-                await vm.PullCompleteData();
+                await vm.BuildCompleteViewModel();
                 isDataLoaded = true;
             }
             DailyWeatherView.BindingContext = vm.dailyWeatherVM;
             forecastlistView.ItemsSource = vm.forecastListVM;
+            MainView.IsVisible = true;
+            UserDialogs.Instance.HideLoading();
         }
 
         async Task CheckAppConfiguration ()
         {
             //try to get configuration
             configuration = AppServices.GetConfiguration();
-            // init configuration if it's empty ( use default api key & user current location ) 
+            // init configuration if it's empty ( use default api key & user current location etc ..) 
             if (string.IsNullOrEmpty(configuration.APIKey))
             {
-                configuration.APIKey = AppConstants.DefaultAPIKey;
-                configuration.numberOfDays = AppConstants.DefaultNumberOfDays;
-                configuration.runAnimation = true;
-                configuration.lastUserLocation = await AppServices.GetCurrentUserLocation();
-                await AppServices.SaveConfiguration(configuration,false);
+               await AppServices.InitConfiguration(configuration);
             }
             if (configuration.synchronization)
             {
                 refreshTimer = new Timer(async (e) =>
                 {
+                    //FIXME
                    // await vm.PullCompleteData();
                 }, null,0, (int.Parse(configuration.duration)) * 60 * 1000);
             }

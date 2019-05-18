@@ -24,26 +24,23 @@ namespace WeatherApp.Helper
             return dateTime.DayOfWeek.ToString();
         }
 
-        public static string CheckIfNight(string timeSunRise, string timeSunSet)
+        public static string CheckDayState(string currentLocationTime,string timeSunRise, string timeSunSet)
         {
             string result = string.Empty;
-            TimeSpan start;
-            TimeSpan end;
-            end = DateTime.ParseExact(timeSunSet,
+            bool isBetween;
+            TimeSpan sunrise;
+            TimeSpan sunset;
+            TimeSpan now;
+            now = DateTime.ParseExact(currentLocationTime,
+                                   "yyyy-MM-dd H:mm", CultureInfo.InvariantCulture).TimeOfDay;
+            sunrise = DateTime.ParseExact(timeSunRise,
                                  "hh:mm tt", CultureInfo.InvariantCulture).TimeOfDay;
-            start = DateTime.ParseExact(timeSunRise,
+            sunset = DateTime.ParseExact(timeSunSet,
                                     "hh:mm tt", CultureInfo.InvariantCulture).TimeOfDay;
-           
-            TimeSpan.TryParse(timeSunRise, out end);
-            TimeSpan now = DateTime.Now.TimeOfDay;
-            if ((now > start) && (now < end))
-            {
-                result = AppConstants.nightImage;
-            }
-            else
-            {
-                result = AppConstants.dayImage;
-            }
+            if (sunset < sunrise)
+                isBetween = sunset <= now && now <= sunrise;
+            isBetween = !(sunrise < now && now < sunset);
+            result = isBetween ? result = AppConstants.nightImage : result = AppConstants.dayImage;
             return result;
         }
     }

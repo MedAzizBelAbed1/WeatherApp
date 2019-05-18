@@ -23,8 +23,7 @@ namespace WeatherApp.Models
             }
         }
         public string duration { get; set; }
-
-
+        public string textcolor { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged(string propertyName)

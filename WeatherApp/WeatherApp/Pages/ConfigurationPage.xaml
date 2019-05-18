@@ -16,10 +16,10 @@
                         <TapGestureRecognizer Tapped="Close_Clicked" />
                     </Image.GestureRecognizers>
                 </Image>
-                <StackLayout Margin="0,30,0,0" Orientation="Horizontal">
+                <!--<StackLayout Margin="0,30,0,0" Orientation="Horizontal">
                     <Label VerticalOptions="Center" MinimumWidthRequest="130" WidthRequest="130" FontSize="18" Text="ApiKey:" TextColor="White" />
                     <Entry VerticalOptions="Center" HorizontalOptions="FillAndExpand" Text="{Binding APIKey}" Placeholder="ApiKey" />
-                </StackLayout>
+                </StackLayout>-->
                 <StackLayout Orientation="Horizontal">
                     <Label VerticalOptions="Center" MinimumWidthRequest="130" WidthRequest="130" FontSize="18" Text="Forecast days:" TextColor="White" />
                     <Picker SelectedItem="{Binding numberOfDays}" HorizontalOptions="FillAndExpand">
@@ -39,12 +39,22 @@
                     <Switch IsToggled="{Binding synchronization}" HorizontalOptions="FillAndExpand" />
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" IsVisible="{Binding synchronization}">
-                    <Label VerticalOptions="Center" MinimumWidthRequest="130" WidthRequest="130" FontSize="17" Text="Every minutes" TextColor="White" />
+                    <Label VerticalOptions="Center" MinimumWidthRequest="130" WidthRequest="130" FontSize="17" Text="Every:" TextColor="White" />
                     <Picker SelectedItem="{Binding duration}" HorizontalOptions="FillAndExpand">
                         <Picker.Items>
                             <x:String>1</x:String>
                             <x:String>10</x:String>
                             <x:String>60</x:String>
+                        </Picker.Items>
+                    </Picker>
+                     <Label VerticalOptions="Center" MinimumWidthRequest="100" WidthRequest="100" FontSize="17" Text="Minutes." TextColor="White" />
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label VerticalOptions="Center" MinimumWidthRequest="130" WidthRequest="130" FontSize="18" Text="Color mode:" TextColor="White" />
+                    <Picker SelectedItem="{Binding textcolor}" HorizontalOptions="FillAndExpand">
+                        <Picker.Items>
+                            <x:String>White</x:String>
+                            <x:String>Black</x:String>
                         </Picker.Items>
                     </Picker>
                 </StackLayout>

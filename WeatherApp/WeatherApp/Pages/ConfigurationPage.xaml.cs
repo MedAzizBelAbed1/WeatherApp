@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WeatherApp.Constants;
 using WeatherApp.Models;
 using WeatherApp.Services;
 using Xamarin.Forms;
@@ -17,18 +18,18 @@ namespace WeatherApp.Pages
         }
         void Close_Clicked(object sender, System.EventArgs e)
         {
-            Navigation.PopModalAsync();
+            Navigation.PopModalAsync(false);
         }
         async void SavleClicked(object sender, System.EventArgs e)
         {
             if (configurationModel.synchronization && string.IsNullOrEmpty(configurationModel.duration))
             {
-               //FIXME SHOW ALERT
+                await DisplayAlert(ResourcesValues.AppName, ResourcesValues.FillDurationMessage, ResourcesValues.OkMessage);
             }
             else
             {
                 await AppServices.SaveConfiguration(configurationModel);
-                await Navigation.PopModalAsync();
+                await Navigation.PopModalAsync(false);
             }
         }
        

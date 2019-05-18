@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
+using WeatherApp.Constants;
+using Acr.UserDialogs;
 using WeatherApp.Models;
 using WeatherApp.Services;
 using Xamarin.Forms;
@@ -22,17 +23,19 @@ namespace WeatherApp.Pages
         }
         void Close_Clicked(object sender, System.EventArgs e)
         {
-            Navigation.PopModalAsync();
+            Navigation.PopModalAsync(false);
         }
         async void SavleClicked(object sender, System.EventArgs e)
         {
             if (!string.IsNullOrEmpty(addressModel.country))
             {
+                UserDialogs.Instance.ShowLoading();
                 await AppServices.SaveAddress(addressModel);
-                await Navigation.PopModalAsync();
+                await Navigation.PopModalAsync(false);
             }
             else
-            { // FIXME Add ALert
+            {
+               await  DisplayAlert(ResourcesValues.AppName, ResourcesValues.FillCountryMessage, ResourcesValues.OkMessage);
             }
         }
     }

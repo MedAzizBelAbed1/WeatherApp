@@ -102,6 +102,16 @@ namespace WeatherApp.Services
             DataChanged();
         }
 
+        public static async Task InitConfiguration(ConfigurationModel configuration)
+        {
+            configuration.APIKey = AppConstants.DefaultAPIKey;
+            configuration.numberOfDays = AppConstants.DefaultNumberOfDays;
+            configuration.runAnimation = true;
+            configuration.textcolor = AppConstants.DefaultColor;
+            configuration.lastUserLocation = await AppServices.GetCurrentUserLocation();
+            await AppServices.SaveConfiguration(configuration, false);
+        }
+
         public static async Task SaveConfiguration(ConfigurationModel configuration, bool refreshData = true)
         {
             //For Saving Value
@@ -109,8 +119,9 @@ namespace WeatherApp.Services
             Application.Current.Properties["numberOfDays"] = configuration.numberOfDays;
             Application.Current.Properties["runAnimation"] = configuration.runAnimation;
             Application.Current.Properties["synchronization"] = configuration.synchronization;
-            Application.Current.Properties["duration"] = configuration.numberOfDays;
+            Application.Current.Properties["duration"] = configuration.duration;
             Application.Current.Properties["lastUserLocation"] = configuration.lastUserLocation;
+            Application.Current.Properties["textcolor"] = configuration.textcolor;
             await Application.Current.SavePropertiesAsync();
             if (refreshData) { DataChanged(); }
         }
@@ -128,8 +139,9 @@ namespace WeatherApp.Services
                 configuration.numberOfDays = (Application.Current.Properties["numberOfDays"]?.ToString());
                 configuration.runAnimation = Convert.ToBoolean((Application.Current.Properties["runAnimation"]?.ToString()));
                 configuration.synchronization = Convert.ToBoolean((Application.Current.Properties["synchronization"]?.ToString()));
-                configuration.duration = (Application.Current.Properties["numberOfDays"]?.ToString());
+                configuration.duration = (Application.Current.Properties["duration"]?.ToString());
                 configuration.lastUserLocation = (Application.Current.Properties["lastUserLocation"]?.ToString());
+                configuration.textcolor = (Application.Current.Properties["textcolor"]?.ToString());
             }
             catch (Exception ex)
             {

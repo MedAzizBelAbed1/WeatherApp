@@ -20,17 +20,6 @@ namespace WeatherApp.Models
         public string text { get; set; }
         public string icon { get; set; }
         public int code { get; set; }
-        public string weatherIcon 
-        {
-            get 
-            {
-                return icon.Replace("//", "http://");
-            }
-            set
-            {
-                weatherIcon = value;
-            }
-        }
     }
 
     public class Current
