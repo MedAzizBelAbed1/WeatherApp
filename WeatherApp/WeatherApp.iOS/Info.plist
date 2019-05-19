@@ -25,7 +25,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>WeatherApp</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.technidoo.WeatherApp</string>
+	<string>com.company.WeatherApp</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
@@ -36,5 +36,7 @@
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Want to use your location</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0.0</string>
 </dict>
 </plist>

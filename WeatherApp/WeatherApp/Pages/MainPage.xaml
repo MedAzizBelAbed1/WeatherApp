@@ -54,7 +54,7 @@
                     <Label TextColor="{Binding textcolor}" VerticalOptions="Center" FontSize="50" Text="{Binding temperature}" />
                     <Image x:Name="weatherImage" WidthRequest="120" HeightRequest="120" Aspect="AspectFit" Source="{Binding icon}" />
                 </StackLayout>
-                <Label Grid.Row="3" Grid.Column="1" HorizontalOptions="Center" TextColor="{Binding textcolor}" FontSize="25" Text="{Binding condition}" />
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Center" TextColor="{Binding textcolor}" FontSize="25" Text="{Binding condition}" />
                 <StackLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Center" Orientation="Vertical">
                     <Label TextColor="{Binding textcolor}" Text="{Binding feelLike}" />
                 </StackLayout>

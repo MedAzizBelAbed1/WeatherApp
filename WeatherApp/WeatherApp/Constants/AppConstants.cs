@@ -7,7 +7,8 @@ namespace WeatherApp.Constants
         public const string apiUrl = "https://api.apixu.com/v1/";
 
         //app constants
-        public const string DefaultAPIKey = "9202ffa8dc8a4bd68b1110943191405";
+        //public const string DefaultAPIKey = "9202ffa8dc8a4bd68b1110943191405";
+        public const string DefaultAPIKey = "7b493c0a6bf443ebb79151015191905";
         public const string DefaultNumberOfDays = "5";
         public const string DefaultColor = "White";
         public const int AnimationDuration = 2000;

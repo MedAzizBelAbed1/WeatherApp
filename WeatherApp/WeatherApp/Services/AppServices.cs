@@ -105,10 +105,12 @@ namespace WeatherApp.Services
             {
                 lastUserLocation = await GetLocationFromAddress();
             }
-            Application.Current.Properties["lastUserLocation"] = lastUserLocation;
-            await Application.Current.SavePropertiesAsync();
-            DataChanged();
-
+            if (!string.IsNullOrEmpty(lastUserLocation))
+            {
+                Application.Current.Properties["lastUserLocation"] = lastUserLocation;
+                await Application.Current.SavePropertiesAsync();
+                DataChanged();
+            }
         }
 
         /// <summary>
