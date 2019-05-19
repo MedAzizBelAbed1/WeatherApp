@@ -35,7 +35,8 @@ namespace WeatherApp.Services
             string locationLatLong = string.Empty;
             try
             {
-                var location = await Geolocation.GetLastKnownLocationAsync();
+                var request = new GeolocationRequest(GeolocationAccuracy.High);
+                var location = await Geolocation.GetLocationAsync(request);
                 if (location != null)
                 {
                     locationLatLong = $"{location.Latitude},{location.Longitude}";
@@ -90,7 +91,9 @@ namespace WeatherApp.Services
             return locationLatLong;
         }
 
-
+        /// <summary>
+        /// save last user location used (current user location or from address) and use it to get weaather data
+        /// </summary>
         public async Task SaveLastUserLocation(bool isCurrentPostion)
         {
             string lastUserLocation = string.Empty;
@@ -105,8 +108,12 @@ namespace WeatherApp.Services
             Application.Current.Properties["lastUserLocation"] = lastUserLocation;
             await Application.Current.SavePropertiesAsync();
             DataChanged();
+
         }
 
+        /// <summary>
+        /// init  app configuration on first application start 
+        /// </summary>
         public async Task InitConfiguration(ConfigurationModel configuration)
         {
             configuration.APIKey = AppConstants.DefaultAPIKey;
@@ -117,6 +124,9 @@ namespace WeatherApp.Services
             await this.SaveConfiguration(configuration, false);
         }
 
+        /// <summary>
+        /// save last configuration used , and check it needded to refredh data
+        /// </summary>
         public async Task SaveConfiguration(ConfigurationModel configuration, bool refreshData = true)
         {
             //For Saving Value
@@ -153,6 +163,7 @@ namespace WeatherApp.Services
             }
             return configuration;
         }
+
         /// <summary>
         /// save last address input
         /// </summary>

@@ -23,10 +23,13 @@ namespace WeatherApp.Pages
             BindingContext = addressModel;
 
         }
+        //close button clicked
         void Close_Clicked(object sender, System.EventArgs e)
         {
             Navigation.PopModalAsync(false);
         }
+
+        //save button clicked
         async void SavleClicked(object sender, System.EventArgs e)
         {
             if (!string.IsNullOrEmpty(addressModel.country))

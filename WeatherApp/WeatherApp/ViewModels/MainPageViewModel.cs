@@ -42,6 +42,7 @@ namespace WeatherApp.ViewModels
             AppServices.DataChanged += RefreshWeatherData;
         }
 
+        // refresh weather data when it's called
         async void RefreshWeatherData()
         {
             UserDialogs.Instance.ShowLoading();
@@ -74,7 +75,7 @@ namespace WeatherApp.ViewModels
                     // daily weather mapping
                     _dailyViewModel.textcolor = configuration.textcolor;
                     _dailyViewModel.regionAndCity = $"{rootModel.location.region}, {rootModel.location.name}";
-                    _dailyViewModel.country = rootModel.location.country;
+                    _dailyViewModel.country = $"{rootModel.location.country}, Today";
                     _dailyViewModel.temperature = $"{rootModel.current.temp_c.ToString()}{AppConstants.celsius}";
                     _dailyViewModel.icon = $"{AppConstants.httpStart}{rootModel.current.condition.icon}";
                     _dailyViewModel.condition = rootModel.current.condition.text;
@@ -96,8 +97,9 @@ namespace WeatherApp.ViewModels
                                 );
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
+                    System.Diagnostics.Debug.WriteLine($"Track objecy mapping error: {ex.Message}");
                     AlertChanged(ResourcesValues.tryAgainLaterMessage);
                 }
             }
@@ -107,7 +109,7 @@ namespace WeatherApp.ViewModels
             }
         }
 
-
+        // prepare weather detaile view model
         public DetailedWeatherViewModel GetDetailedWeather(int poition)
         {
             try

@@ -7,11 +7,12 @@ namespace WeatherApp.Helper
 {
     public static class AppHelper
     {
-
+        // internet checker
         public static bool CheckInternet()
         {
             return CrossConnectivity.Current.IsConnected;
         }
+        //get day name of week
         public static string GetDayOfWeek(string date)
         {
             DateTime dateTime;
@@ -24,6 +25,7 @@ namespace WeatherApp.Helper
             return dateTime.DayOfWeek.ToString();
         }
 
+        //check day state (day or night)
         public static string CheckDayState(string currentLocationTime,string timeSunRise, string timeSunSet)
         {
             string result = string.Empty;

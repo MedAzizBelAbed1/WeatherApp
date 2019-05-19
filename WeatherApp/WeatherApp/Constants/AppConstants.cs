@@ -3,6 +3,10 @@ namespace WeatherApp.Constants
 {
     public class AppConstants
     {
+        //API URL
+        public const string apiUrl = "https://api.apixu.com/v1/";
+
+        //app constants
         public const string DefaultAPIKey = "9202ffa8dc8a4bd68b1110943191405";
         public const string DefaultNumberOfDays = "5";
         public const string DefaultColor = "White";
@@ -12,7 +16,7 @@ namespace WeatherApp.Constants
         public const string wind = "m/s";
         public const string httpStart = "http:";
 
-        //UI
+        //UI constants
         public const string dayImage = "backgroundDay.jpg";
         public const string nightImage = "backgroundNight.jpg";
     }

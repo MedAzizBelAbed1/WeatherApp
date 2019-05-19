@@ -2,13 +2,14 @@
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
+using WeatherApp.Constants;
 using WeatherApp.Models;
 
 namespace WeatherApp.API
 {
     public class WeatherAPI
     {
-        string path = "https://api.apixu.com/v1/";
+        string path = AppConstants.apiUrl;
         HttpClient httpClient;
         WeatherModel weatherModel;
         public WeatherAPI()
@@ -18,8 +19,8 @@ namespace WeatherApp.API
         }
 
         /// <summary>
-        /// call apixu forecast api with (location $ key) as params. and get daily weather data.
-        /// return WeatherModel
+        /// call apixu forecast api with (location $ key) as params. and get last weather data.
+        /// return Root WeatherModel
         /// </summary>
         public async Task<WeatherModel> GetForecastWeather(string key, string location,int numberOfDays)
         {

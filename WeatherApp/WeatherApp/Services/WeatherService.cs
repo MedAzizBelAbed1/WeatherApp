@@ -14,6 +14,12 @@ namespace WeatherApp.Services
         {
             weatherAPI = new WeatherAPI();
         }
+        /// <summary>
+        /// get weather root data from the API
+        /// </summary>
+        /// <typeparam name="ApiKey">Api key to be used</typeparam>
+        /// <typeparam name="numberOfDays">number of forecast days</typeparam>
+        /// <typeparam name="location">lstuserlocation</typeparam>
         public async Task<WeatherModel> GetRootModel(string ApiKey,int numberOfDays,string location)
         {
             return await weatherAPI.GetForecastWeather(ApiKey, location, numberOfDays);

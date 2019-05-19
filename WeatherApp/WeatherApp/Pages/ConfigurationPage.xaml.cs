@@ -18,10 +18,12 @@ namespace WeatherApp.Pages
             configurationModel = appServices.GetConfiguration();
             BindingContext = configurationModel;
         }
+        //close button clicked
         void Close_Clicked(object sender, System.EventArgs e)
         {
             Navigation.PopModalAsync(false);
         }
+        //save button clicked
         async void SavleClicked(object sender, System.EventArgs e)
         {
             if (configurationModel.synchronization && string.IsNullOrEmpty(configurationModel.duration))

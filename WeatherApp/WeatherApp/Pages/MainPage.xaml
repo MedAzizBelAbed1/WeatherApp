@@ -49,8 +49,7 @@
                 <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
                     <Label Font="Bold" TextColor="{Binding textcolor}" FontSize="20" HorizontalOptions="FillAndExpand" Text="{Binding regionAndCity}" />
                 </StackLayout>
-                <Label TextColor="{Binding textcolor}" Grid.Row="1" Grid.Column="0" Text="{Binding country}" />
-                <Label TextColor="{Binding textcolor}" Grid.Row="1" Grid.Column="2" Text="Today" />
+                <Label TextColor="{Binding textcolor}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding country}" />
                 <StackLayout Margin="10,0,0,0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" HorizontalOptions="Center" Orientation="Horizontal">
                     <Label TextColor="{Binding textcolor}" VerticalOptions="Center" FontSize="50" Text="{Binding temperature}" />
                     <Image x:Name="weatherImage" WidthRequest="120" HeightRequest="120" Aspect="AspectFit" Source="{Binding icon}" />
